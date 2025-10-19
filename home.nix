@@ -20,6 +20,48 @@
     niri.homeModules.niri
     vicinaeModule
   ];
+  # 启用 ssh-agent（便于签名与认证）
+  programs.ssh = {
+    enable = true;
+  };
+  services.ssh-agent.enable = true;
+
+  # Git 全局配置（用户级）
+  programs.git = {
+    enable = true;
+    userName = "yb";
+    userEmail = "scauyb@qq.com";
+
+    extraConfig = {
+      gpg.format = "ssh";
+      user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+      commit.gpgsign = true;
+      gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
+      url."git@github.com:".insteadOf = "https://github.com/";
+    };
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  qt = {
+    enable = true;
+    style = {
+      name = "adwaita-dark";
+    };
+  };
+
   programs.dankMaterialShell.enable = true;
 
   home.activation.postActivation = ''

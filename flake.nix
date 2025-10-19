@@ -6,7 +6,9 @@
 
     #    nixpkgs.url = "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
     #    nixpkgs.url = "github:NixOS/nixpkgs";
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
     home-manager = {
@@ -20,13 +22,14 @@
     };
 
     #    quickshell = {
-    #      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=master&rev=3e2ce40b18af943f9ba370ed73565e9f487663ef";
+    #      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=master&rev=f12f0e7c7d883f737ac45b88c5993090b3c87cce";
     #      #      url = "github:outfoxxed/quickshell";
     #      inputs.nixpkgs.follows = "nixpkgs";
     #    };
 
     quickshell-src = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
+      #      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=master&rev=f12f0e7c7d883f737ac45b88c5993090b3c87cce";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
