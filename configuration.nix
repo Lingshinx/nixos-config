@@ -5,6 +5,7 @@
   ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # 使用最新内核
   networking.networkmanager.enable = true;
   networking.hostName = "nixos";
   time.timeZone = "Asia/Shanghai";
@@ -18,7 +19,9 @@
   programs.zsh.enable = true;
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
+  virtualisation.docker.enable = true;
 
+  users.groups.davfs2 = { }; # 这一步是必须的
   users.users.yb = {
     isNormalUser = true; # 普通用户
     extraGroups = [
@@ -26,6 +29,7 @@
       "uucp"
       "input"
       "docker"
+      "davfs2"
     ]; # 可选：让 yb 有 sudo 权限
     group = "yb"; # 主组
   };
@@ -49,6 +53,8 @@
       fcitx5-chinese-addons
     ];
   };
+
+  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     nixd

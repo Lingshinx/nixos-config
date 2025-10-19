@@ -34,6 +34,11 @@
   #programs.niri.enable = true;
 
   home.packages = with pkgs; [
+    miniserve
+    docker-compose
+    davfs2
+    rclone
+    tailscale
     fcitx5-configtool
     libinput
     openssh
