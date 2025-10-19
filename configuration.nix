@@ -22,6 +22,7 @@
   virtualisation.docker.enable = true;
 
   users.groups.davfs2 = { }; # 这一步是必须的
+  users.groups.yb = { }; # 定义一个同名用户组
   users.users.yb = {
     isNormalUser = true; # 普通用户
     extraGroups = [
@@ -34,8 +35,8 @@
     group = "yb"; # 主组
   };
 
-  users.groups.yb = { }; # 定义一个同名用户组
   services.blueman.enable = true; # 启用 Blueman
+  services.flatpak.enable = true;
   hardware.bluetooth.enable = true; # 启用 BlueZ
 
   nixpkgs.config.allowUnfree = true;

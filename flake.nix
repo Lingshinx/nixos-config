@@ -10,7 +10,10 @@
     stable.url = "github:nixos/nixpkgs/nixos-25.05";
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +30,7 @@
     #      inputs.nixpkgs.follows = "nixpkgs";
     #    };
 
-    quickshell-src = {
+    quickshell = {
       #      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=master&rev=f12f0e7c7d883f737ac45b88c5993090b3c87cce";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +38,7 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell-src";
+      inputs.quickshell.follows = "quickshell";
     };
 
     dgop = {
@@ -49,7 +52,7 @@
     dankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell-src";
+      inputs.quickshell.follows = "quickshell";
       inputs.dgop.follows = "dgop";
       inputs.dms-cli.follows = "dms-cli";
     };
@@ -67,7 +70,7 @@
       vicinae,
       nixpkgs,
       chaotic,
-      quickshell-src,
+      nix-flatpak,
       home-manager,
       dankMaterialShell,
       niri,
@@ -77,31 +80,36 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (final: prev: {
-            quickshell = prev.quickshell.overrideAttrs (old: {
-              version = "unstable-${quickshell-src.rev}";
-              src = quickshell-src;
-            });
-          })
-        ];
+        #        overlays = [
+        #          (final: prev: {
+        #            quickshell = prev.quickshell.overrideAttrs (old: {
+        #              version = "unstable-${quickshell.rev}";
+        #              src = quickshell;
+        #            });
+        #          })
+        #        ];
       };
       lib = pkgs.lib;
     in
 
     {
-      packages.${system}.quickshell = pkgs.quickshell;
+      #      packages.${system}.quickshell = pkgs.quickshell;
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = system;
         specialArgs = { inherit inputs; }; # 显式传入
         modules = [
           ./configuration.nix
-          #          ./noctalia.nix
+
           chaotic.nixosModules.default # IMPORTANT
+          ./modules/noctalia.nix
+
+          nix-flatpak.nixosModules.nix-flatpak
+          ./modules/flatpak-declarative.nix
+
           {
             environment.systemPackages = [
-              pkgs.quickshell
+              inputs.quickshell.packages.${pkgs.system}.default
             ];
           }
           home-manager.nixosModules.home-manager

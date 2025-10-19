@@ -23,7 +23,17 @@
   # 启用 ssh-agent（便于签名与认证）
   programs.ssh = {
     enable = true;
+
+    # 关键：关闭未来将废弃的默认配置
+    enableDefaultConfig = false;
+
+    # 如果你需要保留一些默认值，可以自己写在这里
+    matchBlocks."*" = {
+      forwardAgent = true;
+      serverAliveInterval = 60;
+    };
   };
+
   services.ssh-agent.enable = true;
 
   # Git 全局配置（用户级）
@@ -61,6 +71,9 @@
       name = "adwaita-dark";
     };
   };
+  # 关键：强制覆盖 GTK 配置文件
+  xdg.configFile."gtk-3.0/settings.ini".force = true;
+  xdg.configFile."gtk-4.0/settings.ini".force = true;
 
   programs.dankMaterialShell.enable = true;
 
@@ -77,6 +90,7 @@
 
   home.packages = with pkgs; [
     miniserve
+    flatpak
     docker-compose
     davfs2
     rclone
