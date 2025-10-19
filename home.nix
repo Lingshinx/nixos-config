@@ -1,3 +1,4 @@
+# home.nix
 {
   config,
   pkgs,
@@ -13,13 +14,13 @@
   home.homeDirectory = "/home/yb";
   home.stateVersion = "25.11";
 
-  # 引入 DankMaterialShell 和 Niri 的 Home Manager 模块
   imports = [
     dankMaterialShell.homeModules.dankMaterialShell.default
     dankMaterialShell.homeModules.dankMaterialShell.niri
     niri.homeModules.niri
     vicinaeModule
   ];
+  programs.dankMaterialShell.enable = true;
 
   home.activation.postActivation = ''
     if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
@@ -30,29 +31,8 @@
     fi
   '';
 
-  services.vicinae = {
-    enable = true;
-    autoStart = true;
-    settings = {
-      faviconService = "twenty";
-      font.size = 11;
-      popToRootOnClose = false;
-      rootSearch.searchFiles = false;
-      theme.name = "vicinae-dark";
-      window = {
-        csd = true;
-        opacity = 0.95;
-        rounding = 10;
-      };
-    };
-
-  };
-
   #programs.niri.enable = true;
-  # 启用 DankMaterialShell
-  programs.dankMaterialShell.enable = true;
 
-  # 其他常用包
   home.packages = with pkgs; [
     fcitx5-configtool
     libinput
@@ -75,4 +55,21 @@
     nixfmt-rfc-style
 
   ];
+  services.vicinae = {
+    enable = true;
+    autoStart = true;
+    settings = {
+      faviconService = "twenty";
+      font.size = 11;
+      popToRootOnClose = false;
+      rootSearch.searchFiles = false;
+      theme.name = "vicinae-dark";
+      window = {
+        csd = true;
+        opacity = 0.95;
+        rounding = 10;
+      };
+    };
+
+  };
 }

@@ -108,7 +108,7 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -302,23 +302,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1760573772,
-        "narHash": "sha256-RoIm6fgfvnkNQldHrbBhtAaFyiWJV5KF4D0dI41Fr90=",
-        "type": "tarball",
-        "url": "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1758690382,
-        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
+        "lastModified": 1760524057,
+        "narHash": "sha256-EVAqOteLBFmd7pKkb0+FIUyzTF61VKi7YmvP1tw4nEw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
+        "rev": "544961dfcce86422ba200ed9a0b00dd4b1486ec5",
         "type": "github"
       },
       "original": {
@@ -327,24 +315,48 @@
         "type": "indirect"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "quickshell": [
+          "quickshell"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1760814344,
+        "narHash": "sha256-Bvog5IBGrnlrOISoMVKiuC0016OnVKSn4gcWSxM5W+E=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "8b5f06aec623085790cfb8e4754f0e0f98ce5a89",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1760822546,
         "narHash": "sha256-cy3wJQQzQbZ/EYUfTDuMiP/haPOjkqGgWOPPl7K9oiM=",
-        "ref": "master",
+        "owner": "outfoxxed",
+        "repo": "quickshell",
         "rev": "3e2ce40b18af943f9ba370ed73565e9f487663ef",
-        "revCount": 697,
-        "type": "git",
-        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+        "type": "github"
       },
       "original": {
-        "ref": "master",
-        "rev": "3e2ce40b18af943f9ba370ed73565e9f487663ef",
-        "type": "git",
-        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+        "owner": "outfoxxed",
+        "repo": "quickshell",
+        "type": "github"
       }
     },
     "root": {
@@ -356,6 +368,7 @@
         "home-manager": "home-manager_2",
         "niri": "niri",
         "nixpkgs": "nixpkgs_2",
+        "noctalia": "noctalia",
         "quickshell": "quickshell",
         "vicinae": "vicinae"
       }
@@ -382,6 +395,21 @@
       }
     },
     "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
