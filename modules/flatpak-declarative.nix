@@ -31,6 +31,10 @@
       appId = "app.zen_browser.zen";
       origin = "flathub";
     }
+    {
+      appId = "com.dingtalk.DingTalk";
+      origin = "flathub";
+    }
   ];
 
   systemd.services."flatpak-managed-install".environment = {
