@@ -111,9 +111,11 @@
       extra-substituters = [ "https://vicinae.cachix.org" ];
       extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
       substituters = [
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
-        "https://mirror.sjtu.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-unstable"
+        "https://mirrors.ustc.edu.cn/nix-channels/nixpkgs-unstable"
+        #        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        #        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        #        "https://mirror.sjtu.edu.cn/nix-channels/store"
       ];
 
     };

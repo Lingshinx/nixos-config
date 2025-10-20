@@ -4,11 +4,11 @@
 
   inputs = {
 
-    #    nixpkgs.url = "https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
     #    nixpkgs.url = "github:NixOS/nixpkgs";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    #    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #    stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    #    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
