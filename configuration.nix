@@ -10,6 +10,13 @@
   networking.hostName = "nixos";
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
+  zramSwap.enable = true;
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32768;
+    }
+  ];
 
   services.displayManager.sddm.enable = true;
   services.xserver = {
@@ -36,7 +43,7 @@
   };
 
   services.blueman.enable = true; # 启用 Blueman
-  services.flatpak.enable = true;
+
   hardware.bluetooth.enable = true; # 启用 BlueZ
 
   nixpkgs.config.allowUnfree = true;
