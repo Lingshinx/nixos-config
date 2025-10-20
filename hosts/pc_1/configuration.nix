@@ -3,11 +3,13 @@
   imports = [
     ./hardware-configuration.nix
   ];
+  nixpkgs.config.allowUnfree = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest; # 使用最新内核
   networking.networkmanager.enable = true;
-  networking.hostName = "nixos";
+  networking.hostName = "pc_1";
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
   zramSwap.enable = true;
@@ -43,10 +45,7 @@
   };
 
   services.blueman.enable = true; # 启用 Blueman
-
   hardware.bluetooth.enable = true; # 启用 BlueZ
-
-  nixpkgs.config.allowUnfree = true;
 
   programs.niri.enable = true;
   programs.xwayland.enable = true;

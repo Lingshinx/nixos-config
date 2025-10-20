@@ -6,7 +6,13 @@
 }:
 
 {
+  # 1) 启用 Flatpak
   services.flatpak.enable = true;
+
+  # 2) 允许非特权用户创建 user namespace（关键修复点）
+  boot.kernel.sysctl = {
+    "kernel.unprivileged_userns_clone" = 1;
+  };
 
   xdg.portal = {
     enable = true;
@@ -34,13 +40,10 @@
     HTTPS_PROXY = "http://127.0.0.1:7897";
   };
 
+  # 3) 可选：确保 XDG_DATA_DIRS 包含 Flatpak 导出路径（某些会话/显示管理器环境需要）
   security.unprivilegedUsernsClone = true;
   systemd.services.flatpak.serviceConfig.RestrictNamespaces = false;
-
-  environment.sessionVariables.XDG_DATA_DIRS = lib.mkAfter [
-    "/var/lib/flatpak/exports/share"
-    "/home/yb/.local/share/flatpak/exports/share"
-  ];
+  environment.sessionVariables.XDG_DATA_DIRS = lib.mkForce "/usr/share:/var/lib/flatpak/exports/share:/run/current-system/sw/share";
 
   environment.sessionVariables.PATH = lib.mkBefore "/run/wrappers/bin";
 

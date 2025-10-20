@@ -95,39 +95,43 @@
     {
       #      packages.${system}.quickshell = pkgs.quickshell;
 
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = { inherit inputs; }; # 显式传入
-        modules = [
-          ./configuration.nix
+      nixosConfigurations = {
+        pc_1 = nixpkgs.lib.nixosSystem {
+          system = system;
+          specialArgs = { inherit inputs; }; # 显式传入
+          modules = [
+            ./hosts/pc_1/configuration.nix
 
-          chaotic.nixosModules.default # IMPORTANT
-          ./modules/noctalia.nix
+            chaotic.nixosModules.default # IMPORTANT
+            ./modules/noctalia.nix
 
-          nix-flatpak.nixosModules.nix-flatpak
-          ./modules/flatpak-declarative.nix
+            nix-flatpak.nixosModules.nix-flatpak
+            ./modules/flatpak-declarative.nix
 
-          {
-            environment.systemPackages = [
-              inputs.quickshell.packages.${pkgs.system}.default
-            ];
-          }
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              inherit
-                dankMaterialShell
-                niri
-                ;
-              vicinaeModule = vicinae.homeManagerModules.default;
-            };
-            home-manager.users.yb = import ./home.nix;
+            ./modules/nvidia.nix
 
-          }
-        ];
+            {
+              environment.systemPackages = [
+                inputs.quickshell.packages.${pkgs.system}.default
+              ];
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
+              home-manager.extraSpecialArgs = {
+                inherit
+                  dankMaterialShell
+                  niri
+                  ;
+                vicinaeModule = vicinae.homeManagerModules.default;
+              };
+              home-manager.users.yb = import ./home.nix;
+
+            }
+          ];
+        };
       };
 
     };
