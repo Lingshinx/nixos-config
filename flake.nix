@@ -1,25 +1,18 @@
 # flake.nix
 {
   description = "My NixOS configuration";
-
   inputs = {
-
     nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
-
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     quickshell = {
       url = "github:quickshell-mirror/quickshell"; # no ?rev=<hash>
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
-
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,14 +37,11 @@
       inputs.dgop.follows = "dgop";
       inputs.dms-cli.follows = "dms-cli";
     };
-
     vicinae = {
       url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
-
   outputs =
     inputs@{
       self,
@@ -86,9 +75,7 @@
         niri = inputs.niri;
       };
     in
-
     {
-
       nixosConfigurations = {
         pc_1 = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -107,9 +94,7 @@
             }
           ]
           ++ commonModules;
-
         };
-
         Co_1 = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
@@ -117,9 +102,7 @@
             ./hosts/Co_1/configuration.nix
           ]
           ++ commonModules;
-
         };
       };
-
     };
 }
