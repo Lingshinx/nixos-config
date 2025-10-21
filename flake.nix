@@ -90,6 +90,18 @@
         #        ];
       };
       lib = pkgs.lib;
+      commonModules = import ./modules/host_1.nix {
+        inherit
+          pkgs
+          inputs
+          home-manager
+          chaotic
+          nix-flatpak
+          vicinae
+          ;
+        dankMaterialShell = inputs.dankMaterialShell;
+        niri = inputs.niri;
+      };
     in
 
     {
@@ -97,39 +109,26 @@
 
       nixosConfigurations = {
         pc_1 = nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = { inherit inputs; }; # 显式传入
+          inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             ./hosts/pc_1/configuration.nix
-
-            chaotic.nixosModules.default # IMPORTANT
-            ./modules/noctalia.nix
-
-            nix-flatpak.nixosModules.nix-flatpak
-            ./modules/flatpak-declarative.nix
-
+            commonModules
             ./modules/nvidia.nix
-
-            {
-              environment.systemPackages = [
-                inputs.quickshell.packages.${pkgs.system}.default
-              ];
-            }
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.backupFileExtension = "backup";
-              home-manager.extraSpecialArgs = {
-                inherit
-                  dankMaterialShell
-                  niri
-                  ;
-                vicinaeModule = vicinae.homeManagerModules.default;
-              };
               home-manager.users.yb = import ./home.nix;
-
             }
+          ];
+
+        };
+
+        Co_1 = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/Co_1/configuration.nix
+            commonModules
           ];
         };
       };
