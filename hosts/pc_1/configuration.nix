@@ -4,6 +4,8 @@
     ./hardware-configuration.nix
   ];
   nixpkgs.config.allowUnfree = true;
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
