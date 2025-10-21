@@ -22,10 +22,16 @@
     }
   ];
 
-  services.displayManager.sddm.enable = true;
-  services.xserver = {
+  services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
   };
+
+  programs.niri.enable = true;
+  programs.xwayland.enable = true;
+  #  services.xserver = {
+  #    enable = true;
+  #  };
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -49,9 +55,6 @@
 
   services.blueman.enable = true; # 启用 Blueman
   hardware.bluetooth.enable = true; # 启用 BlueZ
-
-  programs.niri.enable = true;
-  programs.xwayland.enable = true;
 
   i18n.inputMethod = {
     enable = true;

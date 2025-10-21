@@ -6,6 +6,7 @@
   vicinaeModule,
   dankMaterialShell,
   niri,
+  quickshell,
   ...
 }:
 
@@ -75,7 +76,11 @@
   xdg.configFile."gtk-3.0/settings.ini".force = true;
   xdg.configFile."gtk-4.0/settings.ini".force = true;
 
-  programs.dankMaterialShell.enable = true;
+  programs.dankMaterialShell = {
+    enable = true;
+    quickshell.package = quickshell.packages.${pkgs.system}.default;
+
+  };
 
   home.activation.postActivation = ''
     if [ ! -f "$HOME/.ssh/id_ed25519" ]; then

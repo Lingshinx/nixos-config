@@ -92,13 +92,18 @@
       nixosConfigurations = {
         pc_1 = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+          };
           modules = [
             ./hosts/pc_1/configuration.nix
             ./modules/nvidia.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.users.yb = import ./home.nix;
+              home-manager.extraSpecialArgs = {
+                inherit quickshell dankMaterialShell;
+              };
             }
           ]
           ++ commonModules;
