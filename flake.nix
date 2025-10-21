@@ -95,13 +95,13 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/pc_1/configuration.nix
-            commonModules
             ./modules/nvidia.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.users.yb = import ./home.nix;
             }
-          ];
+          ]
+          ++ commonModules;
 
         };
 
@@ -110,8 +110,9 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/Co_1/configuration.nix
-            commonModules
-          ];
+          ]
+          ++ commonModules;
+
         };
       };
 

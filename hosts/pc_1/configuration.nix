@@ -9,7 +9,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest; # 使用最新内核
   networking.networkmanager.enable = true;
-  networking.hostName = "nixos";
+  networking.hostName = "pc_1";
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
   zramSwap.enable = true;
