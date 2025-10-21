@@ -90,6 +90,7 @@
 
   home.packages = with pkgs; [
     miniserve
+    dig
     flatpak
     docker-compose
     davfs2

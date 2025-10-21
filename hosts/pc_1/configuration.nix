@@ -38,6 +38,7 @@
       "wheel"
       "uucp"
       "input"
+      "dialout"
       "docker"
       "davfs2"
     ]; # 可选：让 yb 有 sudo 权限

@@ -5,10 +5,6 @@
   inputs = {
 
     nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
-    #    nixpkgs.url = "github:NixOS/nixpkgs";
-    #    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    #    stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    #    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
@@ -24,15 +20,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #    quickshell = {
-    #      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=master&rev=f12f0e7c7d883f737ac45b88c5993090b3c87cce";
-    #      #      url = "github:outfoxxed/quickshell";
-    #      inputs.nixpkgs.follows = "nixpkgs";
-    #    };
-
     quickshell = {
-      #      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?ref=master&rev=f12f0e7c7d883f737ac45b88c5993090b3c87cce";
+      url = "github:quickshell-mirror/quickshell"; # no ?rev=<hash>
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
@@ -72,6 +61,7 @@
       chaotic,
       nix-flatpak,
       home-manager,
+      quickshell,
       dankMaterialShell,
       niri,
       ...
@@ -80,14 +70,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        #        overlays = [
-        #          (final: prev: {
-        #            quickshell = prev.quickshell.overrideAttrs (old: {
-        #              version = "unstable-${quickshell.rev}";
-        #              src = quickshell;
-        #            });
-        #          })
-        #        ];
+        overlays = [ quickshell.overlays.default ];
       };
       lib = pkgs.lib;
       commonModules = import ./modules/host_1.nix {
@@ -105,7 +88,6 @@
     in
 
     {
-      #      packages.${system}.quickshell = pkgs.quickshell;
 
       nixosConfigurations = {
         pc_1 = nixpkgs.lib.nixosSystem {
