@@ -75,6 +75,14 @@
   # 关键：强制覆盖 GTK 配置文件
   xdg.configFile."gtk-3.0/settings.ini".force = true;
   xdg.configFile."gtk-4.0/settings.ini".force = true;
+  xdg.configFile."gtk-4.0/gtk.css" = {
+    text = ''
+      @import url("dank-colors.css");
+      @import url("${pkgs.gnome-themes-extra}/share/themes/Adwaita-dark/gtk-4.0/gtk.css");
+    ''; # 空内容或你的样式
+    force = true;
+  };
+  # 或你的自定义样式
 
   programs.dankMaterialShell = {
     enable = true;
