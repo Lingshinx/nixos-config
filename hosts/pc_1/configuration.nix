@@ -4,14 +4,22 @@
     ./hardware-configuration.nix
   ];
   nixpkgs.config.allowUnfree = true;
-  nix.gc.automatic = true;
-  nix.gc.dates = "weekly";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest; # 使用最新内核
-  networking.networkmanager.enable = true;
-  networking.hostName = "pc_1";
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest; # 使用最新内核
+  };
+  networking = {
+    hostName = "pc_1";
+    # 禁用自动添加 127.0.0.2 条目
+    extraHosts = ''
+      127.0.0.1 localhost pc_1
+      ::1       localhost
+    '';
+  };
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
   zramSwap.enable = true;
@@ -106,6 +114,10 @@
 
   nix = {
     package = pkgs.nix;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
 
     settings = {
       sandbox = false;
