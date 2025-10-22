@@ -22,33 +22,47 @@
     vicinaeModule
   ];
   # 启用 ssh-agent（便于签名与认证）
-  programs.ssh = {
-    enable = true;
-
-    # 关键：关闭未来将废弃的默认配置
-    enableDefaultConfig = false;
-
-    # 如果你需要保留一些默认值，可以自己写在这里
-    matchBlocks."*" = {
-      forwardAgent = true;
-      serverAliveInterval = 60;
+  programs = {
+    ssh = {
+      enable = true;
+      # 关键：关闭未来将废弃的默认配置
+      enableDefaultConfig = false;
+      # 如果你需要保留一些默认值，可以自己写在这里
+      matchBlocks."*" = {
+        forwardAgent = true;
+        serverAliveInterval = 60;
+      };
+    };
+    git = {
+      enable = true;
+      userName = "yb";
+      userEmail = "scauyb@qq.com";
+      extraConfig = {
+        gpg.format = "ssh";
+        user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+        commit.gpgsign = true;
+        gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
+        url."git@github.com:".insteadOf = "https://github.com/";
+      };
     };
   };
-
-  services.ssh-agent.enable = true;
-
-  # Git 全局配置（用户级）
-  programs.git = {
-    enable = true;
-    userName = "yb";
-    userEmail = "scauyb@qq.com";
-
-    extraConfig = {
-      gpg.format = "ssh";
-      user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-      commit.gpgsign = true;
-      gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
-      url."git@github.com:".insteadOf = "https://github.com/";
+  services = {
+    ssh-agent.enable = true;
+    vicinae = {
+      enable = true;
+      autoStart = true;
+      settings = {
+        faviconService = "twenty";
+        font.size = 11;
+        popToRootOnClose = false;
+        rootSearch.searchFiles = false;
+        theme.name = "vicinae-dark";
+        window = {
+          csd = true;
+          opacity = 0.95;
+          rounding = 10;
+        };
+      };
     };
   };
 
@@ -73,23 +87,23 @@
     };
   };
   # 关键：强制覆盖 GTK 配置文件
-  xdg.configFile."gtk-3.0/settings.ini".force = true;
-  xdg.configFile."gtk-4.0/settings.ini".force = true;
-  xdg.configFile."gtk-4.0/gtk.css" = {
-    text = ''
-      @import url("dank-colors.css");
-      @import url("${pkgs.gnome-themes-extra}/share/themes/Adwaita-dark/gtk-4.0/gtk.css");
-    ''; # 空内容或你的样式
-    force = true;
+  xdg = {
+    configFile."gtk-3.0/settings.ini".force = true;
+    configFile."gtk-4.0/settings.ini".force = true;
+    configFile."gtk-4.0/gtk.css" = {
+      text = ''
+        @import url("dank-colors.css");
+        @import url("${pkgs.gnome-themes-extra}/share/themes/Adwaita-dark/gtk-4.0/gtk.css");
+      ''; # 空内容或你的样式
+      force = true;
+    };
   };
-  # 或你的自定义样式
 
   programs.dankMaterialShell = {
     enable = true;
     quickshell.package = quickshell.packages.${pkgs.system}.default;
 
   };
-
   home.activation.postActivation = ''
     if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
       echo "Generating SSH key for user $USER..."
@@ -98,9 +112,6 @@
       ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" -C "$USER@$( ${pkgs.hostname}/bin/hostname )"
     fi
   '';
-
-  #programs.niri.enable = true;
-
   home.packages = with pkgs; [
     miniserve
     dig
@@ -128,23 +139,5 @@
     gnome-keyring
     vscode
     nixfmt-rfc-style
-
   ];
-  services.vicinae = {
-    enable = true;
-    autoStart = true;
-    settings = {
-      faviconService = "twenty";
-      font.size = 11;
-      popToRootOnClose = false;
-      rootSearch.searchFiles = false;
-      theme.name = "vicinae-dark";
-      window = {
-        csd = true;
-        opacity = 0.95;
-        rounding = 10;
-      };
-    };
-
-  };
 }

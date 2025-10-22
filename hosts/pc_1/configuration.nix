@@ -30,39 +30,42 @@
     }
   ];
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+  services = {
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    blueman.enable = true; # 启用 Blueman
+    tailscale.enable = true;
   };
+  hardware.bluetooth.enable = true; # 启用 BlueZ
 
-  programs.niri.enable = true;
-  programs.xwayland.enable = true;
-  #  services.xserver = {
-  #    enable = true;
-  #  };
+  programs = {
+    niri.enable = true;
+    xwayland.enable = true;
+  };
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
   virtualisation.docker.enable = true;
 
-  users.groups.davfs2 = { }; # 这一步是必须的
-  users.groups.yb = { }; # 定义一个同名用户组
-  users.users.yb = {
-    isNormalUser = true; # 普通用户
-    extraGroups = [
-      "wheel"
-      "uucp"
-      "input"
-      "dialout"
-      "docker"
-      "davfs2"
-    ]; # 可选：让 yb 有 sudo 权限
-    group = "yb"; # 主组
+  users = {
+    groups.davfs2 = { }; # 这一步是必须的
+    groups.yb = { }; # 定义一个同名用户组
+    users.yb = {
+      isNormalUser = true; # 普通用户
+      extraGroups = [
+        "wheel"
+        "uucp"
+        "input"
+        "dialout"
+        "docker"
+        "davfs2"
+      ]; # 可选：让 yb 有 sudo 权限
+      group = "yb"; # 主组
+    };
   };
-
-  services.blueman.enable = true; # 启用 Blueman
-  hardware.bluetooth.enable = true; # 启用 BlueZ
 
   i18n.inputMethod = {
     enable = true;
@@ -74,8 +77,6 @@
       fcitx5-chinese-addons
     ];
   };
-
-  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     nixd
@@ -118,10 +119,8 @@
       automatic = true;
       dates = "weekly";
     };
-
     settings = {
       sandbox = false;
-
       experimental-features = [
         "nix-command"
         "flakes"
@@ -135,9 +134,7 @@
         #        "https://mirrors.ustc.edu.cn/nix-channels/store"
         #        "https://mirror.sjtu.edu.cn/nix-channels/store"
       ];
-
     };
-
   };
   system.stateVersion = "25.11";
 }
