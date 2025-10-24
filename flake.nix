@@ -100,6 +100,13 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/Co_1/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.users.yb = import ./home.nix;
+              home-manager.extraSpecialArgs = {
+                inherit quickshell dankMaterialShell;
+              };
+            }
           ]
           ++ commonModules;
         };
