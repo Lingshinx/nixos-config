@@ -1,12 +1,9 @@
 #./modules/nvidia.nix
 {
   config,
-  pkgs,
-  lib,
   ...
 }:
 {
-  #  nixpkgs.config.allowUnfree = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
 

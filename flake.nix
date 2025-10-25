@@ -1,6 +1,27 @@
 # flake.nix
 {
-  description = "My NixOS configuration";
+  outputs =
+    inputs:
+    let
+      system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations = {
+        pc_1 = inputs.nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            # 在这里声明 overlay，而不是 specialArgs.pkgs
+            { nixpkgs.overlays = [ inputs.quickshell.overlays.default ]; }
+
+            ./hosts/pc_1/configuration.nix
+            ./modules/nvidia.nix
+            ./modules/host_1.nix
+            ./home.nix
+          ];
+        };
+      };
+    };
   inputs = {
     nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
@@ -42,74 +63,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs =
-    inputs@{
-      self,
-      vicinae,
-      nixpkgs,
-      chaotic,
-      nix-flatpak,
-      home-manager,
-      quickshell,
-      dankMaterialShell,
-      niri,
-      ...
-    }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [ quickshell.overlays.default ];
-      };
-      lib = pkgs.lib;
-      commonModules = import ./modules/host_1.nix {
-        inherit
-          pkgs
-          inputs
-          home-manager
-          chaotic
-          nix-flatpak
-          vicinae
-          ;
-        dankMaterialShell = inputs.dankMaterialShell;
-        niri = inputs.niri;
-      };
-    in
-    {
-      nixosConfigurations = {
-        pc_1 = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./hosts/pc_1/configuration.nix
-            ./modules/nvidia.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.users.yb = import ./home.nix;
-              home-manager.extraSpecialArgs = {
-                inherit quickshell dankMaterialShell;
-              };
-            }
-          ]
-          ++ commonModules;
-        };
-        Co_1 = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/Co_1/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.users.yb = import ./home.nix;
-              home-manager.extraSpecialArgs = {
-                inherit quickshell dankMaterialShell;
-              };
-            }
-          ]
-          ++ commonModules;
-        };
-      };
-    };
+
 }
