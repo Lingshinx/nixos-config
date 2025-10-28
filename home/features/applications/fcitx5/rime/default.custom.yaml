@@ -1,0 +1,24 @@
+# 注意，一个文件中只能有一个 patch
+patch:
+  schema_list:
+    - schema: double_pinyin_flypy  # 小鹤双拼
+
+  # 默认使用英文标点
+  switches:
+    - name: ascii_punct
+      reset: 1   # 1 表示默认英文标点，0 表示默认中文标点
+    - name: ascii_mode
+      reset: 1
+      states: [ 中文, 英文 ]
+
+  menu:
+    # 候选词个数
+    page_size: 8
+
+  ascii_composer:
+    good_old_caps_lock: false
+    switch_key:
+      Shift_L: commit_code
+
+  translator:
+    enable_completion: false

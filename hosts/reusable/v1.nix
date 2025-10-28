@@ -1,0 +1,124 @@
+# 懒得分多个模块了，反正我只需要一个用户
+{ pkgs, inputs, ... }:
+{
+
+  imports = [
+    ./input_method.nix
+    ./file_manager.nix
+  ];
+
+  nixpkgs = {
+    overlays = [ inputs.quickshell.overlays.default ];
+    config.allowUnfree = true;
+  };
+
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest; # 使用最新内核
+  };
+
+  time.timeZone = "Asia/Shanghai";
+  i18n.defaultLocale = "en_US.UTF-8";
+  zramSwap.enable = true;
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32768;
+    }
+  ];
+
+  services = {
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    blueman.enable = true; # 启用 Blueman
+  };
+  hardware.bluetooth.enable = true; # 启用 BlueZ
+
+  programs = {
+    niri.enable = true;
+    xwayland.enable = true;
+    zsh.enable = true;
+    fish.enable = true;
+  };
+
+  users.defaultUserShell = pkgs.fish;
+  virtualisation.docker.enable = true;
+
+  users = {
+    groups.davfs2 = { }; # 这一步是必须的
+    groups.yb = { }; # 定义一个同名用户组
+    users.yb = {
+      isNormalUser = true; # 普通用户
+      extraGroups = [
+        "wheel"
+        "uucp"
+        "input"
+        "dialout"
+        "docker"
+        "davfs2"
+      ]; # 可选：让 yb 有 sudo 权限
+      group = "yb"; # 主组
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    pciutils
+    glxinfo
+    zig
+    gcc
+    clang
+    go
+    google-chrome
+    xray
+    xremap
+    gtk3
+    gtk4
+    xorg.xinit
+    xwayland-satellite
+    feishu
+    v2rayn
+    waybar
+    vim
+    alacritty
+    yazi
+    git
+    chezmoi
+    kitty
+    neovim
+    fuzzel
+  ];
+
+  environment.variables = {
+    GOPROXY = "https://goproxy.cn,direct";
+    HTTP_PROXY = "http://127.0.0.1:7897";
+    HTTPS_PROXY = "http://127.0.0.1:7897";
+  };
+
+  nix = {
+    package = pkgs.nix;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
+    settings = {
+      sandbox = false;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      extra-substituters = [ "https://vicinae.cachix.org" ];
+      extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+      substituters = [
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        #        "https://mirror.sjtu.edu.cn/nix-channels/store"
+      ];
+    };
+  };
+  system.stateVersion = "25.11";
+}

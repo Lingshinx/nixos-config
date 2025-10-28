@@ -2,69 +2,70 @@
 {
   pkgs,
   niri,
-  vicinaeModule,
-  dankMaterialShell,
+  currentHostName,
+  my_hosts,
+
   ...
 }:
 
 {
-  home.username = "yb";
-  home.homeDirectory = "/home/yb";
-  home.stateVersion = "25.11";
+  home = {
+    username = "yb";
+    homeDirectory = "/home/yb";
+    stateVersion = "25.11";
+  };
 
   imports = [
     ./features/applications/kitty.nix
+    ./features/applications/fcitx5.nix
 
     ./features/development/git.nix
     ./features/development/ssh.nix
+    ./features/development/my_idea.nix
 
     ./features/desktop/vicinae.nix
     ./features/desktop/gtk.nix
     ./features/desktop/qt.nix
+    ./features/desktop/file_manager.nix
+
+    niri.homeModules.niri
     ./features/desktop/dank-material-shell.nix
+    ./features/desktop/niri/pc1.nix
 
     ./features/cli/atuin.nix
+    ./features/cli/fish.nix
     ./features/cli/starship.nix
     ./features/cli/zoxide.nix
     ./features/cli/bat.nix
-    niri.homeModules.niri
   ];
 
-  home.activation.postActivation = ''
-    if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
-      echo "Generating SSH key for user $USER..."
-      mkdir -p "$HOME/.ssh"
-      chmod 700 "$HOME/.ssh"
-      ${pkgs.openssh}/bin/ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" -C "$USER@$( ${pkgs.hostname}/bin/hostname )"
-    fi
-  '';
-
-  home.packages = with pkgs; [
-    miniserve
-    dig
-    flatpak
-    docker-compose
-    davfs2
-    rclone
-    tailscale
-    fcitx5-configtool
-    libinput
-    openssh
-    hostname
-    rustscan
-    fastfetch
-    bottom
-    qq
-    atuin
-    starship
-    zoxide
-    bat
-    jetbrains.rust-rover
-    jetbrains.webstorm
-    telegram-desktop_git
-    netease-cloud-music-gtk
-    gnome-keyring
-    vscode
-    nixfmt-rfc-style
-  ];
+  home.packages =
+    with pkgs;
+    [
+      miniserve
+      dig
+      flatpak
+      docker-compose
+      davfs2
+      rclone
+      libinput
+      openssh
+      hostname
+      rustscan
+      fastfetch
+      bottom
+      jetbrains.rust-rover
+      jetbrains.webstorm
+      gnome-keyring
+      nixfmt-rfc-style
+      nixd
+    ]
+    ++ lib.optionals (currentHostName == my_hosts.pc_1.hostName) [
+      telegram-desktop
+      netease-cloud-music-gtk
+    ]
+    ++ lib.optionals (currentHostName == my_hosts.Co_1.hostName) [
+      jetbrains.pycharm-professional
+      jetbrains.dataspell
+    ];
 }

@@ -1,26 +1,42 @@
 # flake.nix
 {
-  outputs =
-    inputs:
+  outputs = inputs:
     let
-      system = "x86_64-linux";
-    in
-    {
-      nixosConfigurations = {
-        pc_1 = inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            # 在这里声明 overlay，而不是 specialArgs.pkgs
-            { nixpkgs.overlays = [ inputs.quickshell.overlays.default ]; }
+      lib = inputs.nixpkgs.lib;
+      my_hosts = import ./modules/my_hosts.nix;
 
-            ./hosts/pc_1/configuration.nix
-            ./modules/nvidia.nix
-            ./modules/host_1.nix
-            ./home.nix
+      hosts = {
+        pc_1 = [
+          ./hosts/pc_1/configuration.nix
+          ./modules/nvidia.nix
+          ./modules/host_1.nix
+          ./home.nix
+        ];
+        Co_1 = [
+          ./hosts/Co_1/configuration.nix
+          ./modules/host_1.nix
+          ./home.nix
+        ];
+      };
+
+      mkHost = name: modules:
+        lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs my_hosts; };
+          modules = modules ++ [
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                # ✅ name 是 mkHost 的参数，已定义
+                currentHostName = my_hosts.${name}.hostName;
+                inherit my_hosts;
+              };
+            }
           ];
         };
-      };
+    in
+    {
+      nixosConfigurations = lib.mapAttrs mkHost hosts;
     };
   inputs = {
     nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
@@ -54,7 +70,6 @@
     dankMaterialShell = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
       inputs.dgop.follows = "dgop";
       inputs.dms-cli.follows = "dms-cli";
     };
