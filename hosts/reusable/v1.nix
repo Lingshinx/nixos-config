@@ -1,9 +1,8 @@
-# 懒得分多个模块了，反正我只需要一个用户
 {
   pkgs,
-  inputs,
   ...
-}: {
+}:
+{
   nixpkgs = {
     config.allowUnfree = true;
   };
@@ -46,8 +45,8 @@
   virtualisation.docker.enable = true;
 
   users = {
-    groups.davfs2 = {}; # 这一步是必须的
-    groups.yb = {}; # 定义一个同名用户组
+    groups.davfs2 = { }; # 这一步是必须的
+    groups.yb = { }; # 定义一个同名用户组
     users.yb = {
       isNormalUser = true; # 普通用户
       extraGroups = [
@@ -105,8 +104,8 @@
         "nix-command"
         "flakes"
       ];
-      extra-substituters = ["https://vicinae.cachix.org"];
-      extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
+      extra-substituters = [ "https://vicinae.cachix.org" ];
+      extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
       substituters = [
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://mirrors.ustc.edu.cn/nix-channels/store"

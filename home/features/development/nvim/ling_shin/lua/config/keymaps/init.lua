@@ -13,8 +13,6 @@ for abbr, full in pairs(require "config.keymaps.abbr") do
 end
 
 map("n", "<C-A>", "vggG")
-map("n", "H", "^")
-map("n", "L", "$")
 
 map("n", "dm", "<cmd>delm!<CR>", { desc = "Delete Marks" })
 map("n", "<UP>", "<C-u>")
