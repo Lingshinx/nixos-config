@@ -8,17 +8,22 @@ patch:
     - name: ascii_punct
       reset: 1   # 1 表示默认英文标点，0 表示默认中文标点
     - name: ascii_mode
-      reset: 1
+      reset: 0
       states: [ 中文, 英文 ]
 
   menu:
     # 候选词个数
     page_size: 8
+    layout:
+      orientation: vertical   #
 
   ascii_composer:
     good_old_caps_lock: false
     switch_key:
       Shift_L: commit_code
+      Shift_R: commit_code
+  speller:
+    auto_select: false
 
   translator:
     enable_completion: false

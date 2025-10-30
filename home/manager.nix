@@ -10,7 +10,12 @@
     useUserPackages = true;
     backupFileExtension = "backup";
 
-    users.yb = import ./yb.nix;
+    users.yb = {
+      imports = [
+        inputs.catppuccin.homeModules.catppuccin
+        ./yb.nix
+      ];
+    };
     extraSpecialArgs = {
       inherit (inputs)
         niri

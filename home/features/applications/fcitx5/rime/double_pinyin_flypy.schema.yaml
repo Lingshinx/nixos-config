@@ -26,13 +26,19 @@ schema:
     - stroke
     - melt_eng          # 英文方案
 
+ascii_composer:
+  good_old_caps_lock: false
+  switch_key:
+    Shift_L: commit_code   # 左 Shift：拼音上屏为英文并切换到英文模式
+    Shift_R: commit_code   # 右 Shift 同样效果
+
 switches:
   - name: ascii_mode
-    reset: 1
+    reset: 0
     states: [ 中文, 英文 ]
   - name: emoji_suggestion
     states: [ "😣️","😁️" ]
-    reset: 1
+    reset: 0
   - name: full_shape
     states: [ 半角, 全角 ]
     reset: 0
@@ -44,7 +50,7 @@ switches:
     reset: 0
   - name: ascii_punct
     states: [ "。，", "．，" ]
-    reset: 0
+    reset: 1
   - name: chaifen        # 拆字滤镜
     states: [ 🙈, 🐵 ]     # 快捷键 「Control+Shift+C」
     reset: 0
@@ -356,7 +362,8 @@ key_binder:
     - { accept: "Control+Shift+1", toggle: transcription, when: has_menu }           # 当存在候选菜单时，可以切换简体和繁体
     - { accept: "Control+Shift+exclam", toggle: transcription, when: has_menu }      # 当存在候选菜单时，可以切换简体和繁体（小狼毫可能读取这个）
     - { accept: "Control+Shift+C", toggle: chaifen, when: has_menu }          # 拆字滤镜开关
+    - { when: always, accept: Shift_L, toggle: ascii_mode }
+    - { when: always, accept: Shift_R, toggle: ascii_mode }
+    - { when: composing, accept: Shift_L, send: Escape }
+    - { when: has_menu, accept: Shift_L, send: Escape }
 
-menu:
-  # 候选词个数
-  page_size: 6

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   programs.git = {
     enable = true;
@@ -11,7 +11,7 @@
       commit.gpgsign = true;
       gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
 
-      #      url."git@github.com:".insteadOf = "https://github.com/";
+      url."git@github.com:".insteadOf = "https://github.com/";
     };
   };
 }

@@ -4,11 +4,8 @@
   niri,
   currentHostName,
   my_hosts,
-
   ...
-}:
-
-{
+}: {
   home = {
     username = "yb";
     homeDirectory = "/home/yb";
@@ -20,6 +17,13 @@
     ./features/applications/fcitx5.nix
 
     ./features/development/git.nix
+    ./features/development/nix_lsp.nix
+    ./features/development/node.nix
+    ./features/development/gitbutler.nix
+    ./features/development/lua.nix
+    ./features/development/nvim.nix
+    ./features/development/rust.nix
+    ./features/development/uv.nix
     ./features/development/ssh.nix
     ./features/development/my_idea.nix
 
@@ -39,10 +43,11 @@
     ./features/cli/bat.nix
   ];
 
-  home.packages =
-    with pkgs;
+  home.packages = with pkgs;
     [
       miniserve
+      somo
+      p7zip
       dig
       flatpak
       docker-compose
@@ -57,8 +62,6 @@
       jetbrains.rust-rover
       jetbrains.webstorm
       gnome-keyring
-      nixfmt-rfc-style
-      nixd
     ]
     ++ lib.optionals (currentHostName == my_hosts.pc_1.hostName) [
       telegram-desktop
@@ -66,6 +69,5 @@
     ]
     ++ lib.optionals (currentHostName == my_hosts.Co_1.hostName) [
       jetbrains.pycharm-professional
-      jetbrains.dataspell
     ];
 }

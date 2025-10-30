@@ -1,7 +1,6 @@
 # modules/common-modules.nix
-{
-  inputs,
-  ...
+{ inputs
+, ...
 }:
 
 {

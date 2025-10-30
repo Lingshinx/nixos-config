@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
+  catppuccin.kitty.enable = true;
+
   programs.kitty = {
     enable = true;
     font = {

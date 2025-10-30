@@ -2,13 +2,7 @@
 { pkgs, inputs, ... }:
 {
 
-  imports = [
-    ./input_method.nix
-    ./file_manager.nix
-  ];
-
   nixpkgs = {
-    overlays = [ inputs.quickshell.overlays.default ];
     config.allowUnfree = true;
   };
 
@@ -71,11 +65,11 @@
     glxinfo
     zig
     gcc
+    cmake
     clang
     go
     google-chrome
     xray
-    xremap
     gtk3
     gtk4
     xorg.xinit
@@ -87,9 +81,7 @@
     alacritty
     yazi
     git
-    chezmoi
     kitty
-    neovim
     fuzzel
   ];
 

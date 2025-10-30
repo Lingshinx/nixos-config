@@ -1,29 +1,31 @@
 # flake.nix
 {
-  outputs = inputs:
-    let
-      lib = inputs.nixpkgs.lib;
-      my_hosts = import ./modules/my_hosts.nix;
+  description = "My NixOS configuration version 0.3 ";
+  outputs = inputs: let
+    lib = inputs.nixpkgs.lib;
+    my_hosts = import ./modules/my_hosts.nix;
 
-      hosts = {
-        pc_1 = [
-          ./hosts/pc_1/configuration.nix
-          ./modules/nvidia.nix
-          ./modules/host_1.nix
-          ./home.nix
-        ];
-        Co_1 = [
-          ./hosts/Co_1/configuration.nix
-          ./modules/host_1.nix
-          ./home.nix
-        ];
-      };
+    hosts = {
+      pc_1 = [
+        ./hosts/pc_1/configuration.nix
+        ./modules/nvidia.nix
+        ./modules/host_1.nix
+        ./home.nix
+      ];
+      Co_1 = [
+        ./hosts/Co_1/configuration.nix
+        ./modules/host_1.nix
+        ./home.nix
+      ];
+    };
 
-      mkHost = name: modules:
-        lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs my_hosts; };
-          modules = modules ++ [
+    mkHost = name: modules:
+      lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs my_hosts;};
+        modules =
+          modules
+          ++ [
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager.extraSpecialArgs = {
@@ -33,17 +35,21 @@
               };
             }
           ];
-        };
-    in
-    {
-      nixosConfigurations = lib.mapAttrs mkHost hosts;
-    };
+      };
+  in {
+    nixosConfigurations = lib.mapAttrs mkHost hosts;
+  };
   inputs = {
     nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
+    catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri = {
@@ -73,10 +79,10 @@
       inputs.dgop.follows = "dgop";
       inputs.dms-cli.follows = "dms-cli";
     };
+
     vicinae = {
-      url = "github:vicinaehq/vicinae"; # tell Nixos where to get Vicinae
+      url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
 }
