@@ -1,13 +1,16 @@
 return {
   "folke/flash.nvim",
   event = "LazyFile",
-  opts = {},
+  opts = { modes = { char = { keys = {} } } },
   ---@type Flash.Config
   keys = {
     {
-      "X",
+      "f",
       mode = { "n", "x", "o" },
-      function() require("flash").jump() end,
+      function()
+        require("flash").jump()
+        vim.cmd("normal! zz")
+      end,
       desc = "Flash",
     },
     {

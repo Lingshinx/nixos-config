@@ -40,7 +40,10 @@
     nixosConfigurations = lib.mapAttrs mkHost hosts;
   };
   inputs = {
-    nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
+    # add kk can use mirrors
+    nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    #nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
     catppuccin.url = "github:catppuccin/nix";

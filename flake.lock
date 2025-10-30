@@ -54,11 +54,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761795597,
+        "lastModified": 1761796423,
         "narHash": "sha256-a35k0YtfW4zKRH+dmxsOSR8W7kVwayf1H0V23igY1Rc=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "0a79d9a1879b3b7e5b5e36b0aa8fa00682368fe2",
+        "rev": "986993a890287ac501f311c270ed191b2cff0fc3",
         "type": "github"
       },
       "original": {
@@ -390,14 +390,14 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1761470712,
-        "narHash": "sha256-5bRIcZ2GZ+Wo3XrFVcFWGDIjycGp53B/9TNj1r4Iwsc=",
+        "lastModified": 1761672384,
+        "narHash": "sha256-o9KF3DJL7g7iYMZq9SWgfS1BFlNbsm6xplRjVlOCkXI=",
         "type": "tarball",
-        "url": "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
       }
     },
     "noctalia": {
