@@ -1,6 +1,6 @@
 # flake.nix
 {
-  description = "My NixOS configuration version 0.3 ";
+  description = "My NixOS configuration version 0.4 ";
   outputs = inputs: let
     lib = inputs.nixpkgs.lib;
     my_hosts = import ./modules/my_hosts.nix;
