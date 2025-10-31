@@ -9,12 +9,10 @@ require "config.keymaps.debug"
 local map = vim.keymap.set
 
 for abbr, full in pairs(require "config.keymaps.abbr") do
-  map("ia", abbr, full)
+    map("ia", abbr, full)
 end
 
--- Flash mappings - override default f and F
-map({ "n", "x", "o" }, "f", function() require("flash").jump() end, { desc = "Flash" })
-map({ "n", "x", "o" }, "F", function() require("flash").jump() end, { desc = "Flash" })
+map("n", "<C-A>", "vggG")
 
 map("n", "dm", "<cmd>delm!<CR>", { desc = "Delete Marks" })
 map("n", "<UP>", "<C-u>")

@@ -1,4 +1,4 @@
-{ my_hosts, ... }:
+{ my_hosts, lib, ... }:
 let
   host1 = my_hosts.pc_1.hostName;
 in
@@ -6,6 +6,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ../reusable.nix
+    (import ../reusable/my_host.nix { hostName = host1; })
   ];
 
   services = {
@@ -13,11 +14,11 @@ in
   };
 
   networking = {
-    hostName = host1;
-    # 禁用自动添加 127.0.0.2 条目
-    extraHosts = ''
-      127.0.0.1 localhost ${host1}
-      ::1       localhost ${host1}
-    '';
+    hosts = {
+      "127.0.0.1" = lib.mkAfter [
+        "nixos"
+      ];
+    };
+
   };
 }

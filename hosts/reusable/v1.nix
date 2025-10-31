@@ -1,7 +1,8 @@
-# 懒得分多个模块了，反正我只需要一个用户
-{ pkgs, inputs, ... }:
 {
-
+  pkgs,
+  ...
+}:
+{
   nixpkgs = {
     config.allowUnfree = true;
   };
@@ -62,7 +63,7 @@
 
   environment.systemPackages = with pkgs; [
     pciutils
-    glxinfo
+    mesa-demos
     zig
     gcc
     cmake

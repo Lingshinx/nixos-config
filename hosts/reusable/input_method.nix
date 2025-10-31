@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
@@ -9,20 +8,19 @@
       librime
       fcitx5-gtk
       kdePackages.fcitx5-qt
-      fcitx5-chinese-addons
-      fcitx5-configtool
+      qt6Packages.fcitx5-chinese-addons
     ];
   };
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [ jetbrains-mono ];
+    packages = with pkgs; [jetbrains-mono];
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "JetBrains Mono" ];
-        sansSerif = [ "JetBrains Mono" ]; # 可选：统一所有字体
-        serif = [ "JetBrains Mono" ]; # 可选
+        monospace = ["JetBrains Mono"];
+        sansSerif = ["JetBrains Mono"]; # 可选：统一所有字体
+        serif = ["JetBrains Mono"]; # 可选
       };
     };
   };
@@ -32,5 +30,4 @@
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
   };
-
 }

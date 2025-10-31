@@ -2,9 +2,7 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   # 1) 启用 Flatpak
   services.flatpak.enable = true;
 
@@ -15,7 +13,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   services.flatpak.remotes = [
@@ -33,6 +31,7 @@
     {
       appId = "com.dingtalk.DingTalk";
       origin = "flathub";
+      #       sudo flatpak override com.dingtalk.DingTalk --filesystem=/home/yb/Downloads/
     }
   ];
 

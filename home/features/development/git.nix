@@ -1,5 +1,12 @@
-{ config, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
+  home.packages = with pkgs; [
+    lazygit
+    gh
+  ];
   programs.git = {
     enable = true;
     settings = {
