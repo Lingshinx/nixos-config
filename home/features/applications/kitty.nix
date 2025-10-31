@@ -44,8 +44,11 @@ in {
       ${resize "j"} = "scroll_line_down";
       ${resize "space"} = "scroll_page_down";
       ${resize "shift+space"} = "scroll_page_up";
-      ${resize "shift+bracketleft"} =  "scroll_to_prompt -1"
-      ${resize "shift+bracketright"} = "scroll_to_prompt 1"
+      ${resize "shift+bracketleft"} = "scroll_to_prompt -1";
+      ${resize "shift+bracketright"} = "scroll_to_prompt 1";
+      ${resize "plus"} =  "change_font_size all +2.0";
+      ${resize "minus"} = "change_font_size all -2.0";
+      ${resize "equal"} = "change_font_size all 0";
     };
   };
 }
