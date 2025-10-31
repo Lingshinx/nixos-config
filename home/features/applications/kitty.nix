@@ -1,7 +1,11 @@
-{ ... }:
+{ lib, ... }:
 
 let
   leader_key = "alt+space";
+  leader = key: leader_key + ">" + key;
+  mode = mode_name: key: lib.strings.join " " ["--mode" , mode_name , key];
+  resize = mode "resize";
+  new_mode = mode_name: "--new-mode " + mode_name;
 in {
   catppuccin.kitty.enable = true;
 
@@ -27,7 +31,19 @@ in {
       "page_up" = "scroll_page_up";
       "page_down" = "scroll_page_down";
 
-      leader "s" = "show_scrollback";
+      ${leader "s"} = "show_scrollback";
+
+      ${new_mode "resize"} = leader "r";
+      ${resize "esc"} = "pop_keyboard_mode";
+
+      ${resize "g>g"} = "scroll_home";
+      ${resize "shift+g"} = "scroll_end";
+      ${resize "home"} = "scroll_home";
+      ${resize "end"} = "scroll_end";
+      ${resize "k"} = "scroll_line_up";
+      ${resize "j"} = "scroll_line_down";
+      ${resize "space"} = "scroll_page_down";
+      ${resize "shift+space"} = "scroll_page_up";
     };
   };
 }
