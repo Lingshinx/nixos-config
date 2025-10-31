@@ -18,7 +18,7 @@ in {
       window_margin_width = "1";
       confirm_os_window_close = "0";
       shell = "fish";
-      scrolllback_pager = "nvim -c 'set filetype=scrollback'"
+      scrollback_pager = "nvim -c 'set filetype=scrollback'"
     };
 
     keybindings = {
