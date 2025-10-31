@@ -5,7 +5,8 @@
   currentHostName,
   my_hosts,
   ...
-}: {
+}:
+{
   home = {
     username = "yb";
     homeDirectory = "/home/yb";
@@ -17,6 +18,7 @@
     ./features/applications/fcitx5.nix
 
     ./features/development/git.nix
+    ./features/development/bevy.nix
     ./features/development/nix_lsp.nix
     ./features/development/node.nix
     ./features/development/gitbutler.nix
@@ -43,7 +45,8 @@
     ./features/cli/bat.nix
   ];
 
-  home.packages = with pkgs;
+  home.packages =
+    with pkgs;
     [
       miniserve
       somo
