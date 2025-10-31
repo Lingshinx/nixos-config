@@ -44,6 +44,8 @@ in {
       ${resize "j"} = "scroll_line_down";
       ${resize "space"} = "scroll_page_down";
       ${resize "shift+space"} = "scroll_page_up";
+      ${resize "shift+bracketleft"} =  "scroll_to_prompt -1"
+      ${resize "shift+bracketright"} = "scroll_to_prompt 1"
     };
   };
 }
