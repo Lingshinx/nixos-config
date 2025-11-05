@@ -1,24 +1,18 @@
-{ my_hosts, lib, ... }:
-let
+{my_hosts, ...}: let
   host1 = my_hosts.pc_1.hostName;
-in
-{
+in {
   imports = [
     ./hardware-configuration.nix
     ../reusable.nix
-    (import ../reusable/my_host.nix { hostName = host1; })
+    (import ../reusable/my_host.nix {hostName = host1;})
   ];
 
-  services = {
-    tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+    extraUpFlags = ["--accept-dns=true"];
   };
-
-  networking = {
-    hosts = {
-      "127.0.0.1" = lib.mkAfter [
-        "nixos"
-      ];
-    };
-
-  };
+  systemd.services.tailscaled.serviceConfig.Environment = [
+    "TS_NO_DNS=1"
+  ];
 }

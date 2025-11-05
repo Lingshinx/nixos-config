@@ -1,11 +1,5 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    rustup
-    #    rust-bin.stable.latest.default
+    rust-bin.stable.latest.complete
   ];
-
 }

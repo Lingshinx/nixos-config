@@ -14,13 +14,16 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [jetbrains-mono];
+    packages = with pkgs; [
+      jetbrains-mono
+      noto-fonts-cjk-sans # ← 正确包名，支持简体/繁体/日韩
+    ];
     fontconfig = {
       enable = true;
       defaultFonts = {
         monospace = ["JetBrains Mono"];
-        sansSerif = ["JetBrains Mono"]; # 可选：统一所有字体
-        serif = ["JetBrains Mono"]; # 可选
+        sansSerif = ["Noto Sans CJK SC"]; # SC = Simplified Chinese
+        serif = ["Noto Serif CJK SC"];
       };
     };
   };

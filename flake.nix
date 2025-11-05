@@ -1,6 +1,6 @@
 # flake.nix
 {
-  description = "My NixOS configuration version 0.4 ";
+  description = "My NixOS configuration version 0.5 ";
   outputs = inputs: let
     lib = inputs.nixpkgs.lib;
     my_hosts = import ./modules/my_hosts.nix;
@@ -9,13 +9,12 @@
       pc_1 = [
         ./hosts/pc_1/configuration.nix
         ./modules/nvidia.nix
-        ./modules/host_1.nix
-        ./home.nix
+        ./home/manager.nix
       ];
       Co_1 = [
         ./hosts/Co_1/configuration.nix
         ./modules/host_1.nix
-        ./home.nix
+        ./home/manager.nix
       ];
     };
 
@@ -42,10 +41,13 @@
   inputs = {
     # add kk can use mirrors
     nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    #nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
+    #    nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    #    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
     catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -63,11 +65,6 @@
       url = "github:quickshell-mirror/quickshell"; # no ?rev=<hash>
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
-    };
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -84,7 +81,8 @@
     };
 
     vicinae = {
-      url = "github:vicinaehq/vicinae";
+      # lock the version until  a stable release
+      url = "github:vicinaehq/vicinae?rev=a7b0455ac41098c4437deb472eedd4fcb8158ff0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

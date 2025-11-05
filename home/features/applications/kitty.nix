@@ -1,7 +1,12 @@
 {lib, ...}: let
-  leader_key = "alt+space";
+  leader_key = "shift+space";
   leader = key: leader_key + ">" + key;
-  mode = mode_name: key: lib.strings.join " " ["--mode" mode_name key];
+  mode = mode_name: key:
+    lib.strings.join " " [
+      "--mode"
+      mode_name
+      key
+    ];
   resize = mode "resize";
   new_mode = mode_name: "--new-mode " + mode_name;
 in {
@@ -23,29 +28,28 @@ in {
       scrollback_pager = "nvim -c 'set filetype=scrollback'";
     };
 
-    keybindings = {
-      "ctrl+f" = "launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id";
-      "page_up" = "scroll_page_up";
-      "page_down" = "scroll_page_down";
+    extraConfig = ''
+      # extra keybindings
+      map ctrl+shift+f launch --location=hsplit --allow-remote-control kitty +kitten search.py @active-kitty-window-id
 
-      ${leader "s"} = "show_scrollback";
+      map ${new_mode "resize"} ${leader "r"}
+      map ${leader "s"} show_scrollback
 
-      ${new_mode "resize"} = leader "r";
-      ${resize "esc"} = "pop_keyboard_mode";
+      map ${resize "esc"} pop_keyboard_mode
 
-      ${resize "g>g"} = "scroll_home";
-      ${resize "shift+g"} = "scroll_end";
-      ${resize "home"} = "scroll_home";
-      ${resize "end"} = "scroll_end";
-      ${resize "k"} = "scroll_line_up";
-      ${resize "j"} = "scroll_line_down";
-      ${resize "space"} = "scroll_page_down";
-      ${resize "shift+space"} = "scroll_page_up";
-      ${resize "shift+bracketleft"} = "scroll_to_prompt -1";
-      ${resize "shift+bracketright"} = "scroll_to_prompt 1";
-      ${resize "plus"} = "change_font_size all +2.0";
-      ${resize "minus"} = "change_font_size all -2.0";
-      ${resize "equal"} = "change_font_size all 0";
-    };
+      map ${resize "g>g"} scroll_home
+      map ${resize "shift+g"} scroll_end
+      map ${resize "home"} scroll_home
+      map ${resize "end"} scroll_end
+      map ${resize "k"} scroll_line_up
+      map ${resize "j"} scroll_line_down
+      map ${resize "space"} scroll_page_down
+      map ${resize "shift+space"} scroll_page_up
+      map ${resize "shift+bracketleft"} scroll_to_prompt -1
+      map ${resize "shift+bracketright"} scroll_to_prompt 1
+      map ${resize "plus"} change_font_size all +2.0
+      map ${resize "minus"} change_font_size all -2.0
+      map ${resize "equal"} change_font_size all 0
+    '';
   };
 }

@@ -3,13 +3,10 @@
   quickshell,
   dankMaterialShell,
   ...
-}:
-
-{
+}: {
   imports = [
     dankMaterialShell.homeModules.dankMaterialShell.default
     dankMaterialShell.homeModules.dankMaterialShell.niri
-
   ];
   programs.dankMaterialShell = {
     enable = true;

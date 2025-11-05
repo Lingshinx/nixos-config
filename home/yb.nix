@@ -5,50 +5,62 @@
   currentHostName,
   my_hosts,
   ...
-}:
-{
+}: let
+  is_pc1 = currentHostName == my_hosts.pc_1.hostName;
+  is_co1 = currentHostName == my_hosts.Co_1.hostName;
+in {
   home = {
     username = "yb";
     homeDirectory = "/home/yb";
     stateVersion = "25.11";
   };
 
-  imports = [
-    ./features/applications/kitty.nix
-    ./features/applications/fcitx5.nix
+  imports =
+    [
+      ./features/applications/kitty.nix
+      ./features/applications/fcitx5.nix
+      ./features/applications/fastfetch.nix
 
-    ./features/development/git.nix
-    ./features/development/bevy.nix
-    ./features/development/nix_lsp.nix
-    ./features/development/node.nix
-    ./features/development/gitbutler.nix
-    ./features/development/lua.nix
-    ./features/development/nvim.nix
-    ./features/development/rust.nix
-    ./features/development/uv.nix
-    ./features/development/ssh.nix
-    ./features/development/my_idea.nix
+      ./features/development/git.nix
+      ./features/development/bevy.nix
+      ./features/development/nix_lsp.nix
+      ./features/development/node.nix
+      ./features/development/gitbutler.nix
+      ./features/development/lua.nix
+      ./features/development/nvim.nix
+      ./features/development/rust.nix
+      ./features/development/uv.nix
+      ./features/development/ssh.nix
+      ./features/development/my_idea.nix
 
-    ./features/desktop/vicinae.nix
-    ./features/desktop/gtk.nix
-    ./features/desktop/qt.nix
-    ./features/desktop/file_manager.nix
+      ./features/desktop/vicinae.nix
+      ./features/desktop/gtk.nix
+      ./features/desktop/qt.nix
+      ./features/desktop/file_manager.nix
 
-    niri.homeModules.niri
-    ./features/desktop/dank-material-shell.nix
-    ./features/desktop/niri/pc1.nix
+      niri.homeModules.niri
+      ./features/desktop/dank-material-shell.nix
+      ./features/desktop/niri/pc1.nix
 
-    ./features/cli/atuin.nix
-    ./features/cli/fish.nix
-    ./features/cli/starship.nix
-    ./features/cli/zoxide.nix
-    ./features/cli/bat.nix
-  ];
+      ./features/cli/atuin.nix
+      ./features/cli/fish.nix
+      ./features/cli/starship.nix
+      ./features/cli/zoxide.nix
+      ./features/cli/bat.nix
+    ]
+    ++ (
+      if is_pc1
+      then [
+        ./features/desktop/google_nvidia.nix
+        ./features/desktop/sunshine.nix
+      ]
+      else []
+    );
 
-  home.packages =
-    with pkgs;
+  home.packages = with pkgs;
     [
       miniserve
+      autossh
       somo
       p7zip
       dig
@@ -60,17 +72,16 @@
       openssh
       hostname
       rustscan
-      fastfetch
       bottom
-      jetbrains.rust-rover
-      jetbrains.webstorm
+      jetbrains-toolbox
       gnome-keyring
     ]
-    ++ lib.optionals (currentHostName == my_hosts.pc_1.hostName) [
+    ++ lib.optionals is_pc1 [
       telegram-desktop
       netease-cloud-music-gtk
     ]
-    ++ lib.optionals (currentHostName == my_hosts.Co_1.hostName) [
-      jetbrains.pycharm-professional
+    ++ lib.optionals is_co1 [
+      libreoffice
+      vial
     ];
 }

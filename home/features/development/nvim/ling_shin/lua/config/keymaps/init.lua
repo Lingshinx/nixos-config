@@ -12,7 +12,7 @@ for abbr, full in pairs(require "config.keymaps.abbr") do
     map("ia", abbr, full)
 end
 
-map("n", "<C-A>", "vggG")
+map("n", "<C-A>", "ggVG")
 
 map("n", "dm", "<cmd>delm!<CR>", { desc = "Delete Marks" })
 map("n", "<UP>", "<C-u>")

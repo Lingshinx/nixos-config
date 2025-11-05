@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   imports = [
     # 直接引用 flake 输入提供的模块
     inputs.home-manager.nixosModules.home-manager
@@ -17,7 +16,8 @@
       ];
     };
     extraSpecialArgs = {
-      inherit (inputs)
+      inherit
+        (inputs)
         niri
         vicinae
         dankMaterialShell

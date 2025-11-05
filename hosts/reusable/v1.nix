@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   nixpkgs = {
     config.allowUnfree = true;
   };
@@ -45,8 +41,12 @@
   virtualisation.docker.enable = true;
 
   users = {
-    groups.davfs2 = { }; # 这一步是必须的
-    groups.yb = { }; # 定义一个同名用户组
+    groups = {
+      yb = {}; # 定义一个同名用户组
+      davfs2 = {}; # 这一步是必须的
+      plugdev = {};
+    };
+
     users.yb = {
       isNormalUser = true; # 普通用户
       extraGroups = [
@@ -54,12 +54,17 @@
         "uucp"
         "input"
         "dialout"
+        "plugdev"
         "docker"
         "davfs2"
-      ]; # 可选：让 yb 有 sudo 权限
+      ];
       group = "yb"; # 主组
     };
   };
+  services.udev.extraRules = ''
+    # Vial/VIA 规则
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0664", GROUP="plugdev", TAG+="uaccess"
+  '';
 
   environment.systemPackages = with pkgs; [
     pciutils
@@ -104,11 +109,12 @@
         "nix-command"
         "flakes"
       ];
-      extra-substituters = [ "https://vicinae.cachix.org" ];
-      extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+      extra-substituters = ["https://vicinae.cachix.org"];
+      extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
       substituters = [
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://cache.nixos.org/"
         #        "https://mirror.sjtu.edu.cn/nix-channels/store"
       ];
     };

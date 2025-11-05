@@ -25,10 +25,6 @@
 
   services.flatpak.packages = [
     {
-      appId = "app.zen_browser.zen";
-      origin = "flathub";
-    }
-    {
       appId = "com.dingtalk.DingTalk";
       origin = "flathub";
       #       sudo flatpak override com.dingtalk.DingTalk --filesystem=/home/yb/Downloads/
