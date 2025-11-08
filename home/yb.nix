@@ -22,7 +22,7 @@ in {
       ./features/applications/fastfetch.nix
 
       ./features/development/git.nix
-      ./features/development/bevy.nix
+      ./features/development/taplo.nix
       ./features/development/nix_lsp.nix
       ./features/development/node.nix
       ./features/development/gitbutler.nix
@@ -74,6 +74,8 @@ in {
       rustscan
       bottom
       jetbrains-toolbox
+      jetbrains.rust-rover
+      jetbrains.webstorm
       gnome-keyring
     ]
     ++ lib.optionals is_pc1 [
@@ -81,7 +83,8 @@ in {
       netease-cloud-music-gtk
     ]
     ++ lib.optionals is_co1 [
-      libreoffice
+      jetbrains.pycharm-professional
+      wpsoffice-cn
       vial
     ];
 }

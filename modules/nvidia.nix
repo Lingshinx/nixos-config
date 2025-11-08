@@ -1,5 +1,9 @@
 #./modules/nvidia.nix
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
@@ -9,6 +13,11 @@
     graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs; [
+        vulkan-loader
+        vulkan-tools
+        vulkan-validation-layers
+      ];
     };
     nvidia = {
       modesetting.enable = true;
@@ -21,9 +30,8 @@
         nvidiaBusId = "PCI:1:0:0"; # 独显 BusID
       };
 
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      # package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = pkgs.linuxPackages_latest.nvidiaPackages.latest;
     };
   };
-  # 可选：屏蔽核显
-  # boot.kernelParams = ["modprobe.blacklist=amdgpu,i915"];
 }

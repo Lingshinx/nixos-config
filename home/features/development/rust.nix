@@ -1,5 +1,14 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    rust-bin.stable.latest.complete
+    #    (pkgs.rust-bin.stable.latest.default.override {
+    #      extensions = [
+    #        "rustfmt"
+    #        "clippy"
+    #        "rust-src"
+    #        "llvm-tools-preview"
+    #      ];
+    #    })
+    #
+    rustup
   ];
 }

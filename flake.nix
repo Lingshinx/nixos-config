@@ -15,6 +15,7 @@
         ./hosts/Co_1/configuration.nix
         ./modules/host_1.nix
         ./home/manager.nix
+        ./modules/gpu_intel.nix
       ];
     };
 
