@@ -51,7 +51,6 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     flake-utils.url = "github:numtide/flake-utils";
 
     #    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
