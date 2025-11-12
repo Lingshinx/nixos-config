@@ -27,7 +27,6 @@ in {
       ./features/development/node.nix
       ./features/development/gitbutler.nix
       ./features/development/lua.nix
-      ./features/development/nvim.nix
       ./features/development/rust.nix
       ./features/development/uv.nix
       ./features/development/ssh.nix

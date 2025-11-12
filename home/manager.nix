@@ -12,6 +12,7 @@
     users.yb = {
       imports = [
         inputs.catppuccin.homeModules.catppuccin
+        inputs.nvim-config.homeModules.nvim-config
         ./yb.nix
       ];
     };

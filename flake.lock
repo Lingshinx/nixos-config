@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762896068,
-        "narHash": "sha256-T6ARLGwM0QMTIuMNX1JCY9cuMO1lavZOLi+LJwx0zBs=",
+        "lastModified": 1762899585,
+        "narHash": "sha256-IaugCYr2lmaOO/D7K6u1yij9gcoL1Vfy0wmaEXxZg6g=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "80e690f9fc03c66b72c6c7e8403b324d3cb46d84",
+        "rev": "695a75ea099ee76af284e7956f002c7963a06d9c",
         "type": "github"
       },
       "original": {
@@ -71,11 +71,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762896382,
-        "narHash": "sha256-uzMmsvqP5ABbqjY9CXd51nl9yD0F6Yjjseks5Rtvj6M=",
+        "lastModified": 1762899056,
+        "narHash": "sha256-LuWCMnS4P1vJvJt6E50Y7hipofuB6b3jm4wucPxrdbg=",
         "owner": "AvengeMedia",
         "repo": "danklinux",
-        "rev": "addd5183786a11635e4e69e16f7301d03305623e",
+        "rev": "5a8186d99d19eb6cd47dfd2da2d6315ff37ace55",
         "type": "github"
       },
       "original": {
@@ -257,6 +257,26 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
       }
     },
+    "nvim-config": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762905215,
+        "narHash": "sha256-gs+Hzg7AiWoWzaBwgEeVH8I9ntgOuuXoc6mJDXEvcbg=",
+        "owner": "yebei199",
+        "repo": "nvim-config",
+        "rev": "a740ce173a4ad5be684b8c755284543e42387fd8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yebei199",
+        "repo": "nvim-config",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -288,6 +308,7 @@
         "niri": "niri",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_2",
+        "nvim-config": "nvim-config",
         "quickshell": "quickshell",
         "rust-overlay": "rust-overlay",
         "vicinae": "vicinae"
