@@ -14,6 +14,13 @@
   };
   networking = {
     nameservers = ["1.1.1.1" "8.8.8.8" "233.5.5.5"];
+    firewall.allowedTCPPorts = [4001];
+    firewall.allowedTCPPortRanges = [
+      {
+        from = 3000;
+        to = 4000;
+      }
+    ];
     resolvconf.enable = false;
     hostName = hostName;
     hosts = {
