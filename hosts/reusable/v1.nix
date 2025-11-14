@@ -92,7 +92,7 @@
   ];
 
   environment.variables = {
-    GOPROXY = "https://goproxy.cn,direct";
+    GOPROXY = "https://goproxy.cn,https://proxy.golang.org,direct";
     HTTP_PROXY = "http://127.0.0.1:7897";
     HTTPS_PROXY = "http://127.0.0.1:7897";
   };
