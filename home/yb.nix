@@ -59,6 +59,7 @@ in {
   home.packages = with pkgs;
     [
       miniserve
+      gitui
       autossh
       somo
       p7zip
