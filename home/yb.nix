@@ -51,7 +51,7 @@ in {
       if is_pc1
       then [
         ./features/desktop/google_nvidia.nix
-        ./features/desktop/sunshine.nix
+        ./features/desktop/moonlight.nix
       ]
       else []
     );
@@ -73,7 +73,6 @@ in {
       hostname
       rustscan
       bottom
-      jetbrains-toolbox
       jetbrains.rust-rover
       jetbrains.webstorm
       gnome-keyring
