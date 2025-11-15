@@ -46,7 +46,7 @@
 
     # it's my config
     nvim-config = {
-      url = "github:yebei199/nvim-config";
+      url = "github:yebei199/nvim-config?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

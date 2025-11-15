@@ -250,6 +250,7 @@
       },
       "original": {
         "owner": "yebei199",
+        "ref": "master",
         "repo": "nvim-config",
         "type": "github"
       }
