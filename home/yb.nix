@@ -59,6 +59,7 @@ in {
   home.packages = with pkgs;
     [
       miniserve
+      jj
       gitui
       autossh
       somo
