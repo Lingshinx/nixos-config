@@ -80,6 +80,7 @@ in {
     ++ lib.optionals is_pc1 [
       telegram-desktop
       netease-cloud-music-gtk
+      piliplus
     ]
     ++ lib.optionals is_co1 [
       jetbrains.pycharm-professional
