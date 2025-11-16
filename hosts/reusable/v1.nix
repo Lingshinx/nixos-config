@@ -74,8 +74,6 @@
     clang
     go
     google-chrome
-    xray
-    sing-box
     gtk3
     gtk4
     xorg.xinit
