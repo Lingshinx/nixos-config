@@ -57,8 +57,6 @@ in {
   home.packages = with pkgs;
     [
       miniserve
-      jujutsu
-      gitui
       autossh
       somo
       p7zip

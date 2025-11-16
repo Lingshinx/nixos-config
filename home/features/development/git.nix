@@ -5,7 +5,10 @@
 }: {
   home.packages = with pkgs; [
     lazygit
+    gitui
     gh
+    jujutsu
+    lazyjj
   ];
   programs.git = {
     enable = true;
