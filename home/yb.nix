@@ -50,6 +50,7 @@ in {
         ./features/desktop/google_nvidia.nix
         ./features/desktop/moonlight.nix
         ./features/desktop/niri/pc1_niri.nix
+        ./features/desktop/player.nix
       ]
       else []
     );
