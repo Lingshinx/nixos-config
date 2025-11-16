@@ -8,7 +8,7 @@ in {
   ];
 
   services.tailscale = {
-    enable = true;
+    enable = false;
     useRoutingFeatures = "client";
     extraUpFlags = ["--accept-dns=true"];
   };
