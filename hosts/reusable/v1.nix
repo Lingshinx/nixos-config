@@ -80,6 +80,7 @@
     xwayland-satellite
     feishu
     v2rayn
+    sing-box
     waybar
     vim
     alacritty
@@ -88,6 +89,11 @@
     kitty
     fuzzel
   ];
+  system.activationScripts.v2rayN-singbox = ''
+    mkdir -p /home/yb/.local/share/v2rayN/bin
+    ln -sf ${pkgs.sing-box}/bin/sing-box /home/yb/.local/share/v2rayN/bin/sing_box
+    chown -R yb:users /home/yb/.local/share/v2rayN
+  '';
 
   environment.variables = {
     GOPROXY = "https://goproxy.cn,https://proxy.golang.org,direct";
