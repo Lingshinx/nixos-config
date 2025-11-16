@@ -31,7 +31,6 @@
   hardware.bluetooth.enable = true; # 启用 BlueZ
 
   programs = {
-    niri.enable = true;
     xwayland.enable = true;
     zsh.enable = true;
     fish.enable = true;

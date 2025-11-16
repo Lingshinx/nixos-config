@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./reusable/theme.nix
     ./reusable/development.nix
@@ -7,5 +6,6 @@
     ./reusable/input_method.nix
     ./reusable/file_manager.nix
     ./reusable/v1.nix
+    ./reusable/niri.nix
   ];
 }

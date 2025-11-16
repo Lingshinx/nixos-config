@@ -1,7 +1,6 @@
 # yb.nix
 {
   pkgs,
-  niri,
   currentHostName,
   my_hosts,
   ...
@@ -37,9 +36,7 @@ in {
       ./features/desktop/qt.nix
       ./features/desktop/file_manager.nix
 
-      niri.homeModules.niri
       ./features/desktop/dank-material-shell.nix
-      ./features/desktop/niri/pc1.nix
 
       ./features/cli/atuin.nix
       ./features/cli/fish.nix
@@ -52,6 +49,7 @@ in {
       then [
         ./features/desktop/google_nvidia.nix
         ./features/desktop/moonlight.nix
+        ./features/desktop/niri/pc1_niri.nix
       ]
       else []
     );

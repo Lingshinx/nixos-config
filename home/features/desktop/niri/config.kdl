@@ -1,9 +1,11 @@
 spawn-sh-at-startup "wl-paste --watch cliphist store &"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 spawn-at-startup "dms" "run"
+spawn-at-startup "kitty"
+spawn-at-startup "rust-rover"
+spawn-sh-at-startup "google-chrome-stable-nvidia"
 // spawn-at-startup "xwayland-satellite"
 // spawn-at-startup "/opt/v2rayn-bin/v2rayN"
-// spawn-sh-at-startup "vicinae server "
 
 config-notification {
     disable-failed
@@ -102,10 +104,20 @@ window-rule {
     clip-to-geometry true
 }
 window-rule {
-    match app-id="google-chrome"
+    match app-id="kitty"
+    opacity 0.75
+}
+window-rule {
+    match app-id="^Google-chrome$"
+    opacity 0.75
+    open-on-workspace "2-browser";
 // open-maximized true
     default-column-width {
         proportion 0.99;}
+}
+window-rule {
+    match app-id="jetbrains-rustrover"
+    open-on-workspace "3-dev";
 }
 
 window-rule {
@@ -113,7 +125,7 @@ window-rule {
 // open-maximized true
     default-column-width {
         proportion 0.99;}
-// open-focused true
+    open-focused true
 }
 // window-rule {
 //     match title="^*-float$"
@@ -430,7 +442,19 @@ binds {
         move-column-to-workspace 9; }
     Mod+Shift+0 {
         move-column-to-workspace 10; }
+    Mod+Ctrl+1 {
+        focus-workspace "1-web"; }
 }
+workspace "1-terminal"
+workspace "2-browser"
+workspace "3-dev"
+workspace "4-dev2"
+workspace "5-fun"
+workspace "6-fun"
+workspace "7-fun"
+workspace "8-fun"
+workspace "9-fun"
+workspace "10-fun"
 
 gestures {
     hot-corners {
