@@ -19,6 +19,7 @@
         inputs.catppuccin.homeModules.catppuccin
         inputs.nvim-config.homeModules.nvim-config
         inputs.niri.homeModules.niri
+        inputs.nix-index-database.homeModules.nix-index
         ./yb.nix
       ];
     };
