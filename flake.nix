@@ -40,9 +40,10 @@
     nixosConfigurations = lib.mapAttrs mkHost hosts;
   };
   inputs = {
-    # add kk can use mirrors
-    nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
-    #    nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz";
+    # nixpkgs.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixos-unstable/nixexprs.tar.xz"; #this will make version dirty
+    # nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
