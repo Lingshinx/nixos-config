@@ -62,6 +62,7 @@ in {
   home.packages = with pkgs;
     [
       miniserve
+      element-desktop
       autossh
       somo
       p7zip
