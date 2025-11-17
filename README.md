@@ -4,3 +4,8 @@
 
 See an overview of the flake outputs by running
 `nix flake show github:yebei199/nixos_config`.
+
+```bash
+sudo -E nixos-rebuild switch --flake github:yebei199/nixos_config#pc_1
+
+```
