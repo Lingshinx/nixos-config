@@ -52,6 +52,10 @@ in {
         ./features/desktop/niri/pc1_niri.nix
         ./features/desktop/player.nix
       ]
+      else if is_co1
+      then [
+        ./features/desktop/niri/co1_niri.nix
+      ]
       else []
     );
 
