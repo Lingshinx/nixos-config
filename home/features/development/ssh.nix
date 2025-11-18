@@ -11,6 +11,7 @@
       serverAliveInterval = 60;
       serverAliveCountMax = 3;
       forwardAgent = true;
+      proxyCommand = "nc -X 5 -x 127.0.0.1:7897 %h %p";
     };
 
     # 全局配置（可选）
