@@ -61,6 +61,9 @@ in {
 
   home.packages = with pkgs;
     [
+      # for neovim
+      notify
+
       miniserve
       element-desktop
       autossh
