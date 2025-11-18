@@ -27,7 +27,7 @@ in {
       ./features/development/gitbutler.nix
       ./features/development/lua.nix
       ./features/development/rust.nix
-      ./features/development/uv.nix
+      ./features/development/python.nix
       ./features/development/ssh.nix
       ./features/development/my_idea.nix
 

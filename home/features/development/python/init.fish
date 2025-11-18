@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 
-set uv "${pkgs.uv}/bin/uv"
+
+set uv (which uv)
 
 if test (count ($uv python list | string match -r '3\.13')) -eq 0
   echo "Installing Python 3.13 via uv..."
