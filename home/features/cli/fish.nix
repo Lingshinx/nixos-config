@@ -1,9 +1,9 @@
-{ ... }:
-
-let
+{pkgs, ...}: let
   y_func = builtins.readFile ./fish/functions/y.fish;
-in
-{
+in {
+  home.packages = with pkgs; [
+    fish-lsp
+  ];
   programs.fish = {
     enable = true;
 
@@ -21,5 +21,4 @@ in
         bind \cd forward-char               # Ctrl-d
     '';
   };
-
 }
